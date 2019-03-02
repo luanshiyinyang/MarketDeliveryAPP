@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zc.marketdelivery.activity.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_bottom_home_icon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_home_icon"
+            android:drawablePadding="3dp"
+            android:drawableTop="@drawable/tab_menu_homepage"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/tab_menu_homepage"
+            android:textColor="@drawable/tab_menu_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_orders_icon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_home_icon"
+            android:drawablePadding="3dp"
+            android:drawableTop="@drawable/tab_menu_orders"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/tab_menu_order"
+            android:textColor="@drawable/tab_menu_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_personal_icon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_home_icon"
+            android:drawablePadding="3dp"
+            android:drawableTop="@drawable/tab_menu_personal"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/tab_menu_personal_center"
+            android:textColor="@drawable/tab_menu_text"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/div_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/div_white"
+        android:layout_above="@id/ll_bottom_bar"/>
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_above="@id/div_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+    </FrameLayout>
+
+</RelativeLayout>

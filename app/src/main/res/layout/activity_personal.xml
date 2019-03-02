@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
+
+    <include layout="@layout/commonbar"/>
+
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/user_set_up"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            style="@style/grey_divider" />
+        <LinearLayout
+            android:background="@drawable/one_fragment_content_item_bg"
+            android:id="@+id/head_portrait"
+            android:padding="25px"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:text="头像"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/head_image1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/ic_launcher" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/grey_divider"/>
+        <LinearLayout
+            android:background="@drawable/one_fragment_content_item_bg"
+            android:id="@+id/user_name"
+            android:padding="25px"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="271dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="昵称"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/user_name_text"
+                android:layout_gravity="end"
+                android:layout_alignParentRight="true"
+                android:gravity="end"
+                android:drawableRight="@mipmap/icon_right"
+                android:text="不吃猫的鱼"
+                android:textColor="@color/color_999"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/grey_divider" />
+
+        <LinearLayout
+            android:background="@drawable/one_fragment_content_item_bg"
+            android:id="@+id/goods_address"
+            android:padding="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="15sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:text="收货地址"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:ellipsize="end"
+                android:id="@+id/user_address_text"
+                android:drawablePadding="10px"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@mipmap/icon_right"
+                android:layout_toLeftOf="@+id/right"
+                android:textColor="@color/color_999"
+                android:text="管理"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            style="@style/grey_divider" />
+
+        <LinearLayout
+            android:background="@drawable/one_fragment_content_item_bg"
+            android:id="@+id/user_phone"
+            android:padding="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="15sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:text="电话"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/user_phone_text"
+                android:drawablePadding="10px"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@mipmap/icon_right"
+                android:layout_toLeftOf="@+id/right"
+                android:text="177****6666"
+                android:textColor="@color/color_999"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+
+
+        <View
+            style="@style/grey_divider" />
+
+        <LinearLayout
+            android:background="@drawable/one_fragment_content_item_bg"
+            android:id="@+id/user_password"
+            android:padding="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="15sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:text="登录密码"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/alter_user_pwd"
+                android:drawablePadding="10px"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@mipmap/icon_right"
+                android:layout_toLeftOf="@+id/right"
+                android:text="修改"
+                android:textColor="@color/color_999"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/grey_divider" />
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

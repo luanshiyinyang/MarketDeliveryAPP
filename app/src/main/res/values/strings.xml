@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">marketdelivery</string>
+    <string name="home">外卖</string>
+    <string name="action_search">搜索</string>
+    <string name="open_drawer">抽屉打开了</string>
+    <string name="close_drawer">抽屉关闭了</string>
+
+    <string-array name="planets_array">
+        <item>账户信息</item>
+        <item>我的余额</item>
+        <item>我的收藏</item>
+        <item>服务中心</item>
+        <item>系统配置</item>
+        <item>夜间</item>
+    </string-array>
+
+    <string name="tab_menu_homepage">首页</string>
+    <string name="tab_menu_order">订单</string>
+    <string name="tab_menu_personal_center">个人</string>
+    <string name="tab_menu_setting">设置</string>
+
+
+    <string name="reback">返回</string>
+    <string name="start">启动</string>
+    <string name="title_activity_zhuce">注册界面</string>
+    <string name="text">新的activity</string>
+    <string name="title_activity_main2">注  册</string>
+    <string name="title_activity_test">test</string>
+    <string name="login">登录</string>
+    <string name="user">昵称:</string>
+    <string name="passwd">密  码:</string>
+    <string name="confim">确认密码:</string>
+    <string name="phone">手机号码:</string>
+    <string name="xieyi">我接受《用户使用协议》</string>
+    <string name="reset">重  置</string>
+    <string name="getmessage">获取验证码</string>
+    <string name="confimMessage">验证码：</string>
+    <string name="setting">系统设置</string>
+    <string name="font">字体大小:</string>
+    <string name="update">自动更新:</string>
+    <string name="cache">清理缓存:</string>
+    <string name="cache2">清理缓存</string>
+    <string name="advice">意见反馈</string>
+    <string name="about">关于吃货宝</string>
+    <string name="restset">恢复默认设置</string>
+    <string name="exit">退出登录</string>
+    <string name="title_activity_vipinfo">vipinfo</string>
+
+    <string name="no_result">对不起，没有搜索到相关数据！</string>
+    <string name="title_activity_user_login">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_login">Sign in</string>
+
+
+</resources>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/bg_white_to_gray"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_merchant_icon"
+        android:layout_width="@dimen/home_merchant_icon"
+        android:layout_height="@dimen/home_merchant_icon"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ali_pay"
+        android:layout_marginStart="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_merchant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="超市名称"
+            android:textColor="@color/black" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="top">
+
+            <com.hedgehog.ratingbar.RatingBar
+                android:id="@+id/rb_merchant_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                app:clickable="false"
+                app:halfstart="true"
+                android:layout_centerInParent="true"
+                app:starCount="5"
+                android:layout_alignParentStart="true"
+                app:starImageHeight="20dp"
+                app:starEmpty="@mipmap/star_empty"
+                app:starFill="@mipmap/star_full"
+                app:starHalf="@mipmap/star_half">
+
+            </com.hedgehog.ratingbar.RatingBar>
+
+            <TextView
+                android:id="@+id/tv_merchant_score"
+                style="@style/HomeShopTextView"
+                android:layout_centerVertical="true"
+                android:text="4.8"
+                android:textSize="11sp"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/rb_merchant_rating"/>
+
+            <TextView
+                android:id="@+id/tv_merchant_sales"
+                style="@style/HomeShopTextView"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:text="月售1000单"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_merchant_priceSending"
+                style="@style/HomeShopTextView"
+                android:layout_alignParentLeft="true"
+                android:text="￥20起送"
+                android:textSize="11sp"/>
+            <TextView
+                android:id="@+id/tv_merchant_priceSend"
+                style="@style/HomeShopTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/tv_merchant_priceSending"
+                android:text="配送费￥4"
+                android:textSize="11sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_merchant_address"
+                style="@style/HomeShopTextView"
+                android:text="博大广场"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/tv_merchant_timeSended" />
+            <TextView
+                android:id="@+id/tv_merchant_timeSended"
+                style="@style/HomeShopTextView"
+                android:text="27分钟"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/tv_merchant_distance"/>
+            <TextView
+                android:id="@+id/tv_merchant_distance"
+                style="@style/HomeShopTextView"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:text="2km"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

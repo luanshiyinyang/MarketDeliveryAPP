@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
+    >
+<!--顶部描述bar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/ll_shops"
+        android:layout_height="36dp">
+        <ImageView
+            android:id="@+id/iv_order_image"
+            android:paddingLeft="8dp"
+            style="@style/OrderShopIcon"
+            android:src="@drawable/ic_home_page"
+            android:layout_alignTop="@+id/tv_order_state"
+            android:layout_alignParentStart="true" />
+
+
+
+        <TextView
+            android:id="@+id/tv_order_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:textSize="15dp"
+            android:text="超市名称"
+            android:clickable="true"
+            android:textColor="@color/black"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/iv_order_image" />
+        <TextView
+            android:id="@+id/tv_order_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:text="订单配送中"
+            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        style="@style/grey_divider" />
+
+    <!--点单内容，最多三行-->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_goodsName1"
+                android:text="大傻逼黄洋洋"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:layout_width="232dp"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/tv_goodsNumber1"
+                android:text="*1"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_goodsName2"
+                android:text="大傻逼黄洋洋"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:layout_width="232dp"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/tv_goodsNumber2"
+                android:text="*1"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_goodsName3"
+                android:text="大傻逼黄洋洋"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:layout_width="232dp"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/tv_goodsNumber3"
+                android:text="*1"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_moreOrders"
+            android:layout_marginLeft="58dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="..."/>
+
+    </LinearLayout>
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+    android:text="..........."/>
+</RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_order_result"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:textColor="@color/black"
+        android:textAlignment="viewEnd"
+        android:text="共5件商品，支付5元"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginRight="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lv_order_description">
+
+        <Button
+            android:id="@+id/btn_cancelOrder"
+            android:layout_toLeftOf="@+id/btn_connectShops"
+            style="@style/OrderButton"
+            android:text="取消订单" />
+        <Button
+            style="@style/OrderButton"
+            android:id="@+id/btn_connectShops"
+            android:layout_toLeftOf="@+id/btn_notifyOrder"
+            android:text="联系商家" />
+
+        <Button
+            android:id="@+id/btn_notifyOrder"
+            android:layout_alignParentRight="true"
+            style="@style/OrderButton"
+            android:text="催单" />
+    </RelativeLayout>
+
+</LinearLayout>
