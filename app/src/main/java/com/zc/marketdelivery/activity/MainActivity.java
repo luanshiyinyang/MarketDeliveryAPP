@@ -107,9 +107,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_bottom_home_icon:
                 setSelected();
                 tvBottomHomeIcon.setSelected(true);
-                if(homeFragment == null){
-                    homeFragment = new HomeFragment();
-                }
+//                if(homeFragment == null){
+//
+//                }
+                // 删除了上述if判断
+                homeFragment = new HomeFragment();
                 fTransaction.replace(R.id.fl_content, homeFragment);
                 fTransaction.show(homeFragment);
                 break;
@@ -117,9 +119,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_orders_icon:
                 setSelected();
                 tvBottomOrderIcon.setSelected(true);
-                if(orderFragment == null){
-                    orderFragment = new OrdersFragment();
-                }
+//                if(orderFragment == null){
+//
+//                }
+                orderFragment = new OrdersFragment();
                 fTransaction.replace(R.id.fl_content, orderFragment);
                 fTransaction.show(orderFragment);
                 break;
@@ -127,9 +130,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_personal_icon:
                 setSelected();
                 tvBottomPersonalIcon.setSelected(true);
-                if(personalFragment == null){
-                    personalFragment = new PersonalFragment();
-                }
+//                if(personalFragment == null){
+//
+//                }
+                personalFragment = new PersonalFragment();
                 fTransaction.replace(R.id.fl_content, personalFragment);
                 fTransaction.show(personalFragment);
                 break;

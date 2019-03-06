@@ -1,13 +1,17 @@
 package com.zc.marketdelivery.bean;
+
+import java.io.Serializable;
+
 /**
  * Created by 16957 on 2018/12/1.
  * 商铺的种子
  */
 
-public class Merchant{
+public class Merchant implements Serializable {
     private int id;
     private int icon;
     private String name;
+    private String phone;
     private float rating;
     private int sales;
     private float priceSending;
@@ -108,6 +112,13 @@ public class Merchant{
 
     public void setDistance(float distance) {
         this.distance = distance;
+    }
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.zc.marketdelivery.bean;
 
+import android.os.Parcel;
+
 import java.io.Serializable;
 
 public class Good implements Serializable {
@@ -123,4 +125,5 @@ public class Good implements Serializable {
     public void setLocalCount(int localCount) {
         this.localCount = localCount;
     }
+
 }

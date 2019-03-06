@@ -38,7 +38,6 @@ public class RequestForMerchantListTask extends AsyncTask<String,String, List<Me
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        Log.i("msg","开始寻找网络资源");
     }
 
     @Override

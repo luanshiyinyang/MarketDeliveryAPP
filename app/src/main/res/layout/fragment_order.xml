@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,10 +24,15 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
             </android.support.v7.widget.Toolbar>
         </FrameLayout>
-        <ListView
-            android:id="@+id/lv_allOrder"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        </ListView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_orders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+
     </LinearLayout>
-</FrameLayout>
+</ScrollView>

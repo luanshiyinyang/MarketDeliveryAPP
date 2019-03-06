@@ -6,10 +6,12 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.RequiresApi;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.Manifest;
@@ -28,22 +30,30 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 
 import java.io.File;
+import java.io.IOException;
 
 import com.zc.marketdelivery.activity.UserLoginActivity;
-import com.zc.marketdelivery.bean.Merchant;
-import com.zc.marketdelivery.task.RequestForMerchantItemTask;
-import com.zc.marketdelivery.task.RequestForMerchantListTask;
+import com.zc.marketdelivery.bean.User;
+import com.zc.marketdelivery.manager.UserStateManager;
 import com.zc.marketdelivery.utils.FileUtil;
 
 import static com.zc.marketdelivery.utils.FileUtil.getRealFilePathFromUri;
 import com.zc.marketdelivery.R;
 import com.zc.marketdelivery.infoalter.*;
 import com.zc.marketdelivery.BuildConfig;
+import com.zc.marketdelivery.utils.JsonUtil;
+import com.zc.marketdelivery.utils.Md5Util;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class PersonalFragment extends Fragment {
     //请求相机
@@ -65,10 +75,11 @@ public class PersonalFragment extends Fragment {
     private ImageButton back;
     private TextView title;
     private CircleImageView headImage;
+    private Button btnCancelLogin;
     //调用照相机返回图片文件
     private File tempFile;
     private int type;
-    private TextView tv;
+    private View nowView;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -77,7 +88,9 @@ public class PersonalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
+        nowView = view;
         bindViews(view);
+        initViews();
         title.setText("个人中心");
         back.setVisibility(View.GONE);
         tvUserLoginOrRegister.setOnClickListener(new MyClickListener());
@@ -86,6 +99,19 @@ public class PersonalFragment extends Fragment {
         tvUserAddress.setOnClickListener(new MyClickListener());
         tvUserPhone.setOnClickListener(new MyClickListener());
         tvUserPassword.setOnClickListener(new MyClickListener());
+        btnCancelLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (! new UserStateManager().getUserState()){
+                    Toast.makeText(mContext, "未登录", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    new UserStateManager().updateUserState("noLogin");
+                    Toast.makeText(mContext, "注销成功", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         return view;
     }
@@ -99,7 +125,11 @@ public class PersonalFragment extends Fragment {
         tvUserAddress = (TextView) view.findViewById(R.id.tv_userAddress);
         tvUserPhone = (TextView) view.findViewById(R.id.tv_userPhone);
         tvUserPassword = (TextView) view.findViewById(R.id.tv_userPassword);
-        tv= (TextView) view.findViewById(R.id.tv_test);
+        btnCancelLogin = (Button) view.findViewById(R.id.btn_cancel_login);
+    }
+
+    private void initViews(){
+        new UserInfoTask().execute();
     }
 
     @Override
@@ -108,29 +138,33 @@ public class PersonalFragment extends Fragment {
             case 1:
                 if (resultCode == Activity.RESULT_OK) {
                     String returnedData = intent.getStringExtra("data_return");
-                    TextView textView=(TextView)getActivity().findViewById(R.id.user_name_text);
+                    TextView textView = (TextView)nowView.findViewById(R.id.tv_userName);
                     textView.setText(returnedData);
+                    new updateUserInfoTask().execute("name", returnedData);
+
                 }
                 break;
             case 2:
                 if (resultCode == Activity.RESULT_OK) {
                     String returnedData = intent.getStringExtra("data_return");
-                    TextView textView=(TextView)getActivity().findViewById(R.id.user_address_text);
+                    TextView textView=(TextView)getActivity().findViewById(R.id.tv_userAddress);
                     textView.setText(returnedData);
+                    new updateUserInfoTask().execute("address", returnedData);
                 }
                 break;
             case 3:
                 if (resultCode == Activity.RESULT_OK) {
                     String returnedData = intent.getStringExtra("data_return");
-                    TextView textView=(TextView)getActivity().findViewById(R.id.user_phone_text);
+                    TextView textView=(TextView)getActivity().findViewById(R.id.tv_userPhone);
                     textView.setText(returnedData);
                 }
                 break;
             case 4:
                 if (resultCode == Activity.RESULT_OK) {
                     String returnedData = intent.getStringExtra("data_return");
-                    TextView textView=(TextView)getActivity().findViewById(R.id.alter_user_pwd);
+                    TextView textView=(TextView)getActivity().findViewById(R.id.tv_userPassword);
                     textView.setText(returnedData);
+                    new updateUserInfoTask().execute("password", returnedData);
                 }
                 break;
 
@@ -181,12 +215,8 @@ public class PersonalFragment extends Fragment {
                     startActivityForResult(intent3,3);
                     break;
                 case R.id.tv_userPassword:
-//                    Intent intent4 = new Intent(mContext, Pensonal_PasswordAlter.class);
-//                    startActivityForResult(intent4,4);
-                    RequestForMerchantItemTask apiTask = new RequestForMerchantItemTask(mContext,tv );
-
-                    String id = Integer.toString(2);
-                    apiTask.execute(id);
+                    Intent intent4 = new Intent(mContext, Pensonal_PasswordAlter.class);
+                    startActivityForResult(intent4,4);
                     break;
                 case R.id.iv_headImage:
                     type = 1;
@@ -198,10 +228,11 @@ public class PersonalFragment extends Fragment {
         }
     }
 
-    /**
-     * 上传头像
-     */
+
     private void uploadHeadImage() {
+        /**
+         * 上传头像
+         */
         View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_popupwindow, null);
         TextView btnCarema = (TextView) view.findViewById(R.id.btn_camera);
         TextView btnPhoto = (TextView) view.findViewById(R.id.btn_photo);
@@ -209,7 +240,7 @@ public class PersonalFragment extends Fragment {
         final PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
         popupWindow.setOutsideTouchable(true);
-        View parent = LayoutInflater.from(getContext()).inflate(R.layout.activity_personal, null);
+        View parent = LayoutInflater.from(getContext()).inflate(R.layout.fragment_personal, null);
         popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
         //popupWindow在弹窗的时候背景半透明
         final WindowManager.LayoutParams params = getActivity().getWindow().getAttributes();
@@ -264,11 +295,12 @@ public class PersonalFragment extends Fragment {
     }
 
 
-    /**
-     * 外部存储权限申请返回
-     */
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        /**
+         * 外部存储权限申请返回
+         */
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -284,10 +316,11 @@ public class PersonalFragment extends Fragment {
     }
 
 
-    /**
-     * 跳转到相册
-     */
+
     private void gotoPhoto() {
+        /**
+         * 跳转到相册
+         */
         Log.d("evan", "*****************打开图库********************");
         //跳转到调用系统图库
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -295,10 +328,11 @@ public class PersonalFragment extends Fragment {
     }
 
 
-    /**
-     * 跳转到照相机
-     */
+
     private void gotoCamera() {
+        /**
+         * 跳转到照相机
+         */
         Log.d("evan", "*****************打开相机********************");
         //创建拍照存储的图片文件
         tempFile = new File(FileUtil.checkDirPath(Environment.getExternalStorageDirectory().getPath() + "/image/"), System.currentTimeMillis() + ".jpg");
@@ -317,10 +351,11 @@ public class PersonalFragment extends Fragment {
         startActivityForResult(intent, REQUEST_CAPTURE);
     }
 
-    /**
-     * 打开截图界面
-     */
+
     public void gotoClipActivity(Uri uri) {
+        /**
+         * 打开截图界面
+         */
         if (uri == null) {
             return;
         }
@@ -329,6 +364,192 @@ public class PersonalFragment extends Fragment {
         intent.putExtra("type", type);
         intent.setData(uri);
         startActivityForResult(intent, REQUEST_CROP_PHOTO);
+    }
+
+    class UserInfoTask extends AsyncTask<String, String, User>{
+
+        @Override
+        protected User doInBackground(String... strings) {
+            String baseUrl = "http://13.250.1.159:8000/api/users/";
+            String userID = new UserStateManager().getUserID();
+            if (userID.equals("0")){
+                return null;
+            }
+            else {
+                baseUrl += (userID + "/");
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url(baseUrl).build();
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()){
+                        return JsonUtil.parseUserJsonObject(response.body() != null ? response.body().string() : null);
+                    }
+                    return null;
+
+                }catch (IOException e){
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            super.onPostExecute(user);
+            if (user == null){
+                Toast.makeText(mContext, "请先登录或确认网络连接", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                tvUserName.setText(user.getName());
+                StringBuilder stringBuilder = new StringBuilder(user.getPhone());
+                stringBuilder.replace(4, 8, "****");
+                tvUserPhone.setText(stringBuilder.toString());
+            }
+        }
+    }
+
+    class updateUserInfoTask extends AsyncTask<String, String, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            if (strings == null){
+                return null;
+            }
+            String userID = new UserStateManager().getUserID();
+            if (userID.equals("0")){
+                return "请先登录";
+            }
+
+            // 更新用户名
+            if (strings[0].equals("name")){
+                try {
+                    String baseUrl = "http://13.250.1.159:8000/api/users/" + userID + "/";
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url(baseUrl).build();
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()){
+                         if (response.body() != null) {
+                             User user =JsonUtil.parseUserJsonObject(response.body().string());
+                             if (user != null) {
+                                 user.setName(strings[1]);
+                             }
+                             else {
+                                 return "输入用户名";
+                             }
+                             RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),JsonUtil.jsonUserToString(user));
+                             Request request1 = new Request.Builder().url(baseUrl).patch(requestBody).build();
+                             Response response1 = client.newCall(request1).execute();
+                             if (response1.isSuccessful()){
+                                 return "用户名更新成功";
+                             }
+                             else {
+                                 return "更新失败";
+                             }
+                        }
+                        else {
+                            return "请求异常";
+                         }
+                    }
+                    else {
+                        return "网络异常";
+                    }
+                }catch (IOException e){
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+            // 更新密码
+            if (strings[0].equals("password")){
+                try {
+                    String baseUrl = "http://13.250.1.159:8000/api/users/" + userID + "/";
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url(baseUrl).build();
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()){
+                        if (response.body() != null) {
+                            User user =JsonUtil.parseUserJsonObject(response.body().string());
+                            if (user != null) {
+                                user.setPassword(Md5Util.md5(strings[1]));
+                            }
+                            else {
+                                return "输入密码";
+                            }
+                            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),JsonUtil.jsonUserToString(user));
+                            Request request1 = new Request.Builder().url(baseUrl).patch(requestBody).build();
+                            Response response1 = client.newCall(request1).execute();
+                            if (response1.isSuccessful()){
+                                return "密码更新成功";
+                            }
+                            else {
+                                return "更新失败";
+                            }
+                        }
+                        else {
+                            return "请求异常";
+                        }
+                    }
+                    else {
+                        return "网络异常";
+                    }
+                }catch (IOException e){
+                    e.printStackTrace();
+                    return null;
+                }
+
+            }
+
+            // 更新密码
+            if (strings[0].equals("address")){
+                try {
+                    String baseUrl = "http://13.250.1.159:8000/api/users/" + userID + "/";
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url(baseUrl).build();
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()){
+                        if (response.body() != null) {
+                            User user =JsonUtil.parseUserJsonObject(response.body().string());
+                            if (user != null) {
+                                user.setAddress(strings[1]);
+                            }
+                            else {
+                                return "输入地址";
+                            }
+                            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),JsonUtil.jsonUserToString(user));
+                            Request request1 = new Request.Builder().url(baseUrl).patch(requestBody).build();
+                            Response response1 = client.newCall(request1).execute();
+                            if (response1.isSuccessful()){
+                                return "地址更新成功";
+                            }
+                            else {
+                                return "更新失败";
+                            }
+                        }
+                        else {
+                            return "请求异常";
+                        }
+                    }
+                    else {
+                        return "网络异常";
+                    }
+                }catch (IOException e){
+                    e.printStackTrace();
+                    return null;
+                }
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s == null){
+                Toast.makeText(mContext, "数据传入异常", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

@@ -24,21 +24,21 @@
             android:layout_height="50dp"
             android:background="@color/theme"
             android:src="@drawable/location"
-            android:layout_toRightOf="@+id/ground"/>
+            android:layout_toEndOf="@+id/ground"/>
 
         <TextView
             android:id="@+id/location_text"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_toRightOf="@+id/location_image"
-            android:paddingLeft="3dp"
+            android:layout_toEndOf="@+id/location_image"
+            android:paddingStart="3dp"
             android:text="地址"
             android:textSize="18sp"
             android:clickable="true"
             android:textColor="@color/black"
             android:gravity="center_vertical"
             android:background="@color/theme"
-            />
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/text_search"

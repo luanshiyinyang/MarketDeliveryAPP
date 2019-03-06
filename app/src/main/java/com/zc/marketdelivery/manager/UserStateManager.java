@@ -29,11 +29,58 @@ public class UserStateManager {
         }catch (Exception e){
             userState = new String();
         }
-        if(userState.equals("Login")){
+        if(!userState.equals("noLogin")){
             return true;
         }
         else{
             return false;
+        }
+    }
+
+    public String getUserID(){
+        if (! getUserState()){
+            return "0";
+        }
+        String userState;
+        try {
+            File file = new File(rootFile);
+            if (!file.exists()){
+                file.createNewFile();
+                //保证文件绝对存在
+            }
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(rootFile));
+            userState = (String)ois.readObject();
+            ois.close();
+        }catch (Exception e){
+            userState = new String();
+        }
+        if(userState.split("\\+")[0].equals("登录成功")){
+            return userState.split("\\+")[1];
+        }
+        else{
+            return "0";
+        }
+    }
+
+    public String getUserPhone(){
+        String userState;
+        try {
+            File file = new File(rootFile);
+            if (!file.exists()){
+                file.createNewFile();
+                //保证文件绝对存在
+            }
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(rootFile));
+            userState = (String)ois.readObject();
+            ois.close();
+        }catch (Exception e){
+            userState = new String();
+        }
+        if(userState.split("\\+")[0].equals("登录成功")){
+            return userState.split("\\+")[2];
+        }
+        else{
+            return "null";
         }
     }
 

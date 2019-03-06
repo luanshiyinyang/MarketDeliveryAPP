@@ -65,7 +65,7 @@ public class UserLoginActivity extends AppCompatActivity{
     private void userLogin(){
         String phone = etUserPhone.getText().toString().trim();
         String password = Md5Util.md5(etUserPassword.getText().toString().trim());
-        UserLoginTask userLoginTask = new UserLoginTask(mContext);
+        UserLoginTask userLoginTask = new UserLoginTask(mContext, UserLoginActivity.this);
         userLoginTask.execute(new User(phone, password));
     }
 
@@ -79,9 +79,10 @@ public class UserLoginActivity extends AppCompatActivity{
             Toast.makeText(mContext, "密码位数不足", Toast.LENGTH_SHORT).show();
         }
         else {
-            UserRegisterTask userRegisterTask = new UserRegisterTask(mContext);
+            UserRegisterTask userRegisterTask = new UserRegisterTask(mContext, UserLoginActivity.this);
             userRegisterTask.execute(new User(phone, Md5Util.md5(password)));
         }
+
 
     }
 }

@@ -106,12 +106,13 @@ tools:context="com.zc.marketdelivery.activity.DistributingOrderDetailsActivity">
         android:layout_marginLeft="8dp"
         android:layout_marginRight="5dp"
         android:background="@color/black" />
-    <ListView
-        android:id="@+id/lv_order_detail2_shops_detail"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_order_detail2_shops_detail"
         android:layout_width="match_parent"
         android:divider="#00000000"
         android:paddingLeft="8dp"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="20dp">
@@ -203,6 +204,23 @@ tools:context="com.zc.marketdelivery.activity.DistributingOrderDetailsActivity">
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="在线支付"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="8dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="送达地址"
+            android:layout_alignParentLeft="true"/>
+        <TextView
+            android:id="@+id/tv_order_detail2_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="江南大学"/>
     </RelativeLayout>
 </LinearLayout>
 </LinearLayout>

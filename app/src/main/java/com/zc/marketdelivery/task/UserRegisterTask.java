@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.zc.marketdelivery.activity.UserLoginActivity;
 import com.zc.marketdelivery.bean.User;
 import com.zc.marketdelivery.utils.JsonUtil;
 
@@ -21,9 +22,11 @@ import okhttp3.Response;
 public class UserRegisterTask extends AsyncTask<User, String, String> {
     @SuppressLint("StaticFieldLeak")
     private Context mContext;
+    private UserLoginActivity activity;
 
-    public UserRegisterTask(Context mContext) {
+    public UserRegisterTask(Context mContext, UserLoginActivity activity) {
         this.mContext = mContext;
+        this.activity = activity;
     }
 
     @Override
@@ -47,7 +50,6 @@ public class UserRegisterTask extends AsyncTask<User, String, String> {
             }
 
                 String jsonData = JsonUtil.jsonUserToString(user);
-                Log.i("msg", jsonData);
                 RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),jsonData);
                 Request request2 = new Request.Builder().url(baseUrl+"/").post(requestBody).build();
                 Response response2 = client.newCall(request2).execute();
@@ -65,6 +67,9 @@ public class UserRegisterTask extends AsyncTask<User, String, String> {
         super.onPostExecute(s);
         if (s != null){
             Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
+            if (s.equals("注册成功")){
+                activity.finish();
+            }
         }
     }
 }

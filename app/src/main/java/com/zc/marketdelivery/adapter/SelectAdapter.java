@@ -11,7 +11,6 @@ import java.util.Locale;
 
 import com.zc.marketdelivery.activity.ShoppingCartActivity;
 import com.zc.marketdelivery.bean.Good;
-import com.zc.marketdelivery.bean.GoodItem;
 import com.zc.marketdelivery.R;
 
 

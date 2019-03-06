@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.zc.marketdelivery.bean.OrderItem;
 import com.zc.marketdelivery.R;
 
 import java.util.List;

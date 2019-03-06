@@ -1,11 +1,13 @@
 package com.zc.marketdelivery.bean;
 
-public class Order {
+import java.io.Serializable;
+
+public class Order  implements Serializable {
     private String id;
-    private String userID;
+    private long userID;
     private String name;
-    private String state;
-    private String price;
+    private boolean state;
+    private double price;
     private String phone;
     private String timePlaced;
     private String timeExpected;
@@ -14,6 +16,7 @@ public class Order {
     private String wayOfPay;
     private String goodsNumber;
     private String goodsIDs;
+    private String goodNames;
 
 
     public String getId() {
@@ -24,11 +27,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getUserID() {
+    public long getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(long userID) {
         this.userID = userID;
     }
 
@@ -40,19 +43,19 @@ public class Order {
         this.name = name;
     }
 
-    public String getState() {
+    public boolean getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(boolean state) {
         this.state = state;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -118,5 +121,17 @@ public class Order {
 
     public void setGoodsIDs(String goodsIDs) {
         this.goodsIDs = goodsIDs;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public String getGoodNames() {
+        return goodNames;
+    }
+
+    public void setGoodNames(String goodNames) {
+        this.goodNames = goodNames;
     }
 }

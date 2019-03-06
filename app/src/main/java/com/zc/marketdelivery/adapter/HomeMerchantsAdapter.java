@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ import okhttp3.Response;
 public class HomeMerchantsAdapter extends RecyclerView.Adapter<HomeMerchantsAdapter.ViewHolder> {
     private List<Merchant> mData;
     private Context mContext;
-    private float priceSending;
+    private Merchant merchant;
     static class ViewHolder extends RecyclerView.ViewHolder{
         View myView;
         ImageView icon;
@@ -67,6 +66,7 @@ public class HomeMerchantsAdapter extends RecyclerView.Adapter<HomeMerchantsAdap
     public HomeMerchantsAdapter(List<Merchant> Data, Context context){
         this.mContext = context;
         mData = Data;
+
     }
 
     @NonNull
@@ -78,10 +78,8 @@ public class HomeMerchantsAdapter extends RecyclerView.Adapter<HomeMerchantsAdap
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
-                Toast.makeText(view.getContext(), "你点击了第"+Integer.toString(position)+"项", Toast.LENGTH_LONG).show();
                 // 获得该商家的起送费
-                priceSending = mData.get(position).getPriceSending();
-                Log.i("msmc", String.valueOf(priceSending));
+                merchant = mData.get(position);
                 new GoodListTask().execute();
 
             }
@@ -145,16 +143,14 @@ public class HomeMerchantsAdapter extends RecyclerView.Adapter<HomeMerchantsAdap
                 Intent intent = new Intent(mContext,ShoppingCartActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", (Serializable) goods);
+                bundle.putSerializable("merchant", (Serializable) merchant);
                 intent.putExtras(bundle);
-                intent.putExtra("price", priceSending);
-                Log.i("mmm", String.valueOf(priceSending));
                 mContext.startActivity(intent);
             }
             else {
                 Toast.makeText(mContext, "空数据返回", Toast.LENGTH_SHORT).show();
             }
 
-            ;
         }
     }
 }

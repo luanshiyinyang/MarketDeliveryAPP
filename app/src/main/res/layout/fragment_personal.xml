@@ -149,7 +149,6 @@
                 android:id="@+id/tv_userPhone"
                 android:drawablePadding="10px"
                 android:layout_alignParentRight="true"
-                android:drawableRight="@mipmap/icon_right"
                 android:layout_toLeftOf="@+id/right"
                 android:text="177****6666"
                 android:textColor="@color/color_999"
@@ -193,10 +192,17 @@
 
         <View
             style="@style/grey_divider" />
-        <TextView
-            android:id="@+id/tv_test"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_cancel_login"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="注销"/>
+        </LinearLayout>
 
     </LinearLayout>
 

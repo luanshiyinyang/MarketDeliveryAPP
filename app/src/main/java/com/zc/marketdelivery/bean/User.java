@@ -3,12 +3,13 @@ package com.zc.marketdelivery.bean;
 import com.zc.marketdelivery.R;
 
 public class User {
-    private String id;
+    private long id;
     private String name;
     private String password;
     private String phone;
     private String email;
     private String icon;
+    private String address;
 
 
     public User(String phone, String password) {
@@ -30,11 +31,11 @@ public class User {
         this.icon = icon;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -76,5 +77,13 @@ public class User {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.zc.marketdelivery.activity.UserLoginActivity;
 import com.zc.marketdelivery.bean.User;
 import com.zc.marketdelivery.manager.UserStateManager;
 import com.zc.marketdelivery.utils.JsonUtil;
@@ -22,9 +23,11 @@ import okhttp3.Response;
 public class UserLoginTask extends AsyncTask<User, String, String> {
     @SuppressLint("StaticFieldLeak")
     private Context mContext;
+    private UserLoginActivity activity;
 
-    public UserLoginTask(Context mContext) {
+    public UserLoginTask(Context mContext, UserLoginActivity activity) {
         this.mContext = mContext;
+        this.activity = activity;
     }
 
     @Override
@@ -44,7 +47,8 @@ public class UserLoginTask extends AsyncTask<User, String, String> {
                         time ++;
                         if (u.getPhone().equals(user.getPhone())) {
                             if (u.getPassword().equals(user.getPassword())){
-                                return "登录成功";
+
+                                return "登录成功"+"+"+String.valueOf(u.getId())+"+"+user.getPhone();
                             }
                             else {
                                 return "密码错误";
@@ -68,9 +72,9 @@ public class UserLoginTask extends AsyncTask<User, String, String> {
         super.onPostExecute(s);
         if (s != null){
             Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
-            if (s.equals("登录成功")){
-                new UserStateManager().updateUserState("Login");
-                Log.i("state", String.valueOf(new UserStateManager().getUserState()));
+            if (s.split("\\+")[0].equals("登录成功")){
+                new UserStateManager().updateUserState(s);
+                activity.finish();
             }
         }
     }

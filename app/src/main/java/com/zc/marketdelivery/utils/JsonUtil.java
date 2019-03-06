@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zc.marketdelivery.bean.Good;
 import com.zc.marketdelivery.bean.Merchant;
+import com.zc.marketdelivery.bean.Order;
 import com.zc.marketdelivery.bean.User;
 
 import java.util.List;
@@ -21,6 +22,27 @@ public class JsonUtil {
                 //创建一个Gson对象
                 Gson gson = new Gson();
                 return gson.fromJson(jsonData,Merchant.class);
+            }
+            else {
+                return null;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public static Good parseGoodJsonObject(String jsonData) {
+        /*
+        解析Json对象
+         */
+        try {
+            if (jsonData != null) {
+                //创建一个Gson对象
+                Gson gson = new Gson();
+                return gson.fromJson(jsonData,Good.class);
             }
             else {
                 return null;
@@ -113,4 +135,28 @@ public class JsonUtil {
     }
 
 
+    public static String jsonOrderToString(Order order) {
+        Gson gson = new Gson();
+        return gson.toJson(order);
+    }
+
+    public static List<Order> parseOrderJsonList(String jsonData) {
+        /*
+        解析json数组
+         */
+        try {
+            if (jsonData != null) {
+                //创建一个Gson对象
+                Gson gson = new Gson();
+                return gson.fromJson(jsonData, new TypeToken<List<Order>>(){}.getType());
+            }
+            else {
+                return null;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

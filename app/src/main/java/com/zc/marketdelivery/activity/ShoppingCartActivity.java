@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -29,6 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.flipboard.bottomsheet.BottomSheetLayout;
+
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ import java.util.Locale;
 import com.zc.marketdelivery.bean.Good;
 import com.zc.marketdelivery.adapter.*;
 import com.zc.marketdelivery.R;
+import com.zc.marketdelivery.bean.Merchant;
 import com.zc.marketdelivery.manager.UserStateManager;
 import com.zc.marketdelivery.utils.ListUtil;
 
@@ -59,7 +61,8 @@ public class ShoppingCartActivity extends AppCompatActivity{
     private List<Good> dataList;
     private List<Good> typeList = new ArrayList<>();
     private SparseArray<Good> selectedList;
-
+    private double cost;
+    private Merchant merchant;
     private float priceSending;
 
     private SparseIntArray groupSelect;
@@ -88,6 +91,17 @@ public class ShoppingCartActivity extends AppCompatActivity{
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String result = data.getStringExtra("PlaceResult");
+        if (result.equals("finish")){
+            finish();
+        }
+        else {
+            Toast.makeText(mContext, "下单过程异常退出，请重试", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void bindView() {
         ibShoppingCartBack = (ImageButton) findViewById(R.id.ib_shopping_cart_back);
         tvShoppingCartSearch = (TextView) findViewById(R.id.tv_shopping_cart_search);
@@ -114,7 +128,7 @@ public class ShoppingCartActivity extends AppCompatActivity{
     private void initData(){
         // 从intent拿到数据
         Bundle bundle = getIntent().getExtras();
-        priceSending = getIntent().getFloatExtra("price", 20f);
+        merchant = (Merchant) getIntent().getSerializableExtra("merchant");
         dataList = (List<Good>) bundle.getSerializable("data");
         for(int i=0;i<dataList.size();i++){
             // 这里注意ASCII码问题
@@ -132,21 +146,32 @@ public class ShoppingCartActivity extends AppCompatActivity{
         shoppingCartTypeAdapter = new ShoppingCartTypeAdapter(this,typeList);
         rvType.setAdapter(shoppingCartTypeAdapter);
         rvType.addItemDecoration(new DividerDecoration(this));
-        tvShoppingCartTip.setText("￥"+String.valueOf(priceSending)+"元起送");
+        tvShoppingCartTip.setText("￥"+String.valueOf(merchant.getPriceSending())+"元起送");
         tvShopingCartSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, PlaceOrderActivity.class);
-                startActivity(intent);
+
                 UserStateManager stateManager = new UserStateManager();
-                if(stateManager.getUserState()){
-                    Toast.makeText(mContext, "登录了", Toast.LENGTH_SHORT).show();
+                String ID = stateManager.getUserID();
+                String phone = stateManager.getUserPhone();
+                if(ID == "0"){
+                    Toast.makeText(mContext, "没有登录，请先登录", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(mContext, "未登录了", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, PlaceOrderActivity.class);
+                    Bundle bundle = new Bundle();
+                    List<Good> intentData = new ArrayList<>();
+                    for (int i=0;i<selectedList.size();i++){
+                        intentData.add(selectedList.get(selectedList.keyAt(i)));
+                    }
+                    bundle.putSerializable("data", (Serializable) intentData);
+                    bundle.putSerializable("merchant", merchant);
+                    intent.putExtras(bundle);
+                    intent.putExtra("cost", cost);
+                    intent.putExtra("userID", ID);
+                    intent.putExtra("phone", phone);
+                    startActivityForResult(intent, 1);
                 }
-
-                Toast.makeText(ShoppingCartActivity.this, "结算", Toast.LENGTH_SHORT).show();
             }
         });
         ibShoppingCartBack.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +209,6 @@ public class ShoppingCartActivity extends AppCompatActivity{
         if(temp==null){
             return 0;
         }
-        Log.i("count", String.valueOf(temp.getLocalCount()));
         return temp.getLocalCount();
     }
 
@@ -193,7 +217,7 @@ public class ShoppingCartActivity extends AppCompatActivity{
         /*
         添加商品
          */
-
+        shoppingCartTypeAdapter.notifyDataSetChanged();
         int groupCount = groupSelect.get(item.getTypeID());
         if(groupCount==0){
             groupSelect.append(item.getTypeID(),1);
@@ -216,7 +240,7 @@ public class ShoppingCartActivity extends AppCompatActivity{
         /*
         移除商品
          */
-
+        shoppingCartTypeAdapter.notifyDataSetChanged();
         int groupCount = groupSelect.get(item.getTypeID());
         if(groupCount==1){
             groupSelect.delete(item.getTypeID());
@@ -239,13 +263,13 @@ public class ShoppingCartActivity extends AppCompatActivity{
         /*
         刷新布局 总价、购买数量等
          */
+        shoppingCartTypeAdapter.notifyDataSetChanged();
         int size = selectedList.size();
         int count =0;
         double cost = 0;
         for(int i=0;i<size;i++){
             Good item = selectedList.valueAt(i);
             count += item.getLocalCount();
-            Log.i("cost", String.valueOf(item.getLocalCount()));
             cost += item.getLocalCount()* Double.valueOf(item.getPrice());
         }
 
@@ -266,6 +290,7 @@ public class ShoppingCartActivity extends AppCompatActivity{
         }
 
         tvShoppingCartCost.setText(nf.format(cost));
+        this.cost = cost;
 
         if(goodsAdapter != null && refreshGoodList){
             goodsAdapter.notifyDataSetChanged();
@@ -282,6 +307,7 @@ public class ShoppingCartActivity extends AppCompatActivity{
         /*
         清空购物车
          */
+        shoppingCartTypeAdapter.notifyDataSetChanged();
         selectedList.clear();
         groupSelect.clear();
         update(true);
