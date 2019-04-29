@@ -33,7 +33,7 @@ public class UserRegisterTask extends AsyncTask<User, String, String> {
     protected String doInBackground(User... users) {
         try {
             User user = users[0];
-            String baseUrl = "http://13.250.1.159:8000/api/users";
+            String baseUrl = "http://111.231.137.51:8000/api/users";
             // 首先判断手机号是否已经注册
             OkHttpClient client = new OkHttpClient();
             Request request1 = new Request.Builder().url(baseUrl+".json").build();

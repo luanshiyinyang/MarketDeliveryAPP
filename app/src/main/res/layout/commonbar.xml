@@ -3,24 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="?attr/colorPrimary"
+        android:background="#b2ebf2"
         android:orientation="horizontal">
     <ImageButton
         android:id="@+id/personalback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/darkblue"
         android:src="@drawable/icon_back_32px"
         android:layout_gravity="center"
+        android:background="#b2ebf2"
         android:paddingLeft="5dp"/>
 
     <TextView
         android:id="@+id/titlename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="我的"
+        android:text="个人中心"
+        android:gravity="center"
         android:layout_gravity="center"
         android:textColor="@color/black"
-        android:textSize="16dp"
-        android:paddingLeft="5dp"/>
+        android:textSize="18dp"
+        android:paddingLeft="10dp"/>
 </LinearLayout>

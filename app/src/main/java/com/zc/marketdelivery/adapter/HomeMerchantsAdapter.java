@@ -117,7 +117,7 @@ public class HomeMerchantsAdapter extends RecyclerView.Adapter<HomeMerchantsAdap
         @Override
         protected List<Good> doInBackground(String... strings) {
             try {
-                String baseUrl = "http://13.250.1.159:8000/api/goods.json";
+                String baseUrl = "http://111.231.137.51:8000/api/goods.json";
                 OkHttpClient okHttpClient = new OkHttpClient();
                 Request request = new Request.Builder().url(baseUrl).build();
                 Response response = okHttpClient.newCall(request).execute();

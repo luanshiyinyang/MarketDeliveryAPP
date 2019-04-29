@@ -78,7 +78,7 @@ public class Pensonal_PasswordAlter extends AppCompatActivity{
 
         @Override
         protected String doInBackground(String... strings) {
-            String baseUrl = "http://13.250.1.159:8000/api/users/";
+            String baseUrl = "http://111.231.137.51:8000/api/users/";
             String userID = new UserStateManager().getUserID();
             if (userID.equals("0")) {
                 return null;

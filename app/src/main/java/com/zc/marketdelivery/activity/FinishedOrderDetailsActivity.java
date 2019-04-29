@@ -126,7 +126,7 @@ public class FinishedOrderDetailsActivity extends AppCompatActivity {
         @Override
         protected List<Good> doInBackground(String... strings) {
             // 查询所有订单里面的ID号
-            String baseUrl = "http://13.250.1.159:8000/api/goods/";
+            String baseUrl = "http://111.231.137.51:8000/api/goods/";
             List<Good> goods = new ArrayList<>();
             try {
                 OkHttpClient client = new OkHttpClient();

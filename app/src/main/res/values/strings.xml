@@ -17,6 +17,10 @@
         <item>立即送达</item>
         <item>稍后送达</item>
     </string-array>
+    <string-array name="way_of_pay">
+        <item>在线支付</item>
+        <item>货到付款</item>
+    </string-array>
 
     <string name="tab_menu_homepage">首页</string>
     <string name="tab_menu_order">订单</string>
@@ -65,7 +69,8 @@
         completions."
     </string>
     <string name="title_activity_login">Sign in</string>
-    <string name="time_of_arrived">期望送达时间</string>
+    <string name="time_of_arrived">送达时间</string>
+    <string name="way_of_pay">支付方式</string>
 
 
 </resources>

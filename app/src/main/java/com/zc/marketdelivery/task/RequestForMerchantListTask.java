@@ -45,7 +45,7 @@ public class RequestForMerchantListTask extends AsyncTask<String,String, List<Me
         List<Merchant> result;
         try {
             OkHttpClient client = new OkHttpClient();
-            String baseUrl = "http://13.250.1.159:8000/api/";
+            String baseUrl = "http://111.231.137.51:8000/api/";
             String nowUrl = baseUrl + "merchants" + ".json";
             Request request = new Request.Builder().url(nowUrl).build();
             Response response = client.newCall(request).execute();
@@ -104,6 +104,7 @@ public class RequestForMerchantListTask extends AsyncTask<String,String, List<Me
     protected void onPostExecute(List<Merchant> merchants) {
         if (merchants != null){
             super.onPostExecute(merchants);
+            Log.i("mmm", merchants.get(0).getName());
             LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
             recyclerView.setLayoutManager(layoutManager);
             HomeMerchantsAdapter adapter = new HomeMerchantsAdapter(merchants, mContext);

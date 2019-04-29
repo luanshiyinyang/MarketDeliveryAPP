@@ -12,14 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="您当前地址为："/>
+        android:text="您当前地址为："
+        android:textSize="18dp"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:id="@+id/tv_alter_address_now_address"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical"
-        android:text="XXXXXXXXX" />
+        android:text="XXXXXXXXX"
+        android:paddingLeft="5dp"/>
 
 
     </LinearLayout>
@@ -30,10 +34,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:gravity="center_vertical"
-        android:text="请输入您要更改的地址" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="请输入您要更改的地址："
+            android:textSize="18dp"
+            android:paddingLeft="5dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +47,11 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:id="@+id/confirmalter2"
-        android:text="确认修改"/>
+        android:text="确认修改"
+        android:layout_margin="8dp"
+        android:textSize="16dp"
+        android:background="@drawable/button_circle_shape"/>
     </LinearLayout>
 </LinearLayout>

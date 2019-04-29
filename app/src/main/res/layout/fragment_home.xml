@@ -12,17 +12,22 @@
         android:background="@color/theme"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
 
         <TextView
             android:layout_width="10dp"
             android:layout_height="50dp"
-            android:background="@color/theme"
+            android:background="#b2ebf2"
             android:id="@+id/ground" />
         <ImageView
             android:id="@+id/location_image"
             android:layout_width="32dp"
             android:layout_height="50dp"
-            android:background="@color/theme"
+            android:background="#b2ebf2"
             android:src="@drawable/location"
             android:layout_toEndOf="@+id/ground"/>
 
@@ -37,18 +42,17 @@
             android:clickable="true"
             android:textColor="@color/black"
             android:gravity="center_vertical"
-            android:background="@color/theme"
+            android:background="#b2ebf2"
             android:focusable="true" />
 
         <TextView
             android:id="@+id/text_search"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:gravity="center"
             android:background="@drawable/radius_grey_bg"
             android:layout_below="@+id/location_image"
-            android:hint="搜索商家、商品名称"
-            />
+            android:hint="搜索商家、商品名称" />
 
         <com.youth.banner.Banner
             android:id="@+id/banner"
@@ -59,23 +63,25 @@
         <TextView
             android:id="@+id/text1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_below="@+id/banner"
             android:text="---- 推荐商家 ----"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="20dp"
+            android:background="@color/white"/>
 
         <Button
             android:id="@+id/button_sell"
             style="@style/HomeQueryButton"
             android:layout_below="@+id/text1"
-            android:text="销量"/>
+            android:text="销量⇅" />
 
         <Button
             android:id="@+id/button_distance"
             style="@style/HomeQueryButton"
             android:layout_toRightOf="@+id/button_sell"
             android:layout_below="@+id/text1"
-            android:text="距离"/>
+            android:text="距离⇅"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_merchants"

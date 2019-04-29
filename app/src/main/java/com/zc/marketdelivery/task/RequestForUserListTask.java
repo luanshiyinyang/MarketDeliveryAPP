@@ -29,7 +29,7 @@ public class RequestForUserListTask extends AsyncTask<String, String, User> {
         List<User> result;
         try {
             OkHttpClient client = new OkHttpClient();
-            String baseUrl = "http://13.250.1.159:8000/api/";
+            String baseUrl = "http://111.231.137.51:8000/api/";
             String nowUrl = baseUrl + "users" + ".json";
             Request request = new Request.Builder().url(nowUrl).build();
             Response response = client.newCall(request).execute();

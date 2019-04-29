@@ -199,7 +199,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
         @Override
         protected String doInBackground(String... strings) {
-            String baseUrl = "http://13.250.1.159:8000/api/orders/";
+            String baseUrl = "http://111.231.137.51:8000/api/orders/";
             if (strings[0] != null){
                 baseUrl += strings[0];
                 baseUrl += "/";

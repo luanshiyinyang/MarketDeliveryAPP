@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:textSize="16sp"
+    android:textSize="20sp"
     android:padding="5dp"
-    android:background="#ddc1c1c1"
-    android:textColor="#0066FF">
+    android:background="@color/white"
+    android:textColor="@color/black">
 
 </TextView>

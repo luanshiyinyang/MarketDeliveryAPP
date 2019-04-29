@@ -370,7 +370,7 @@ public class PersonalFragment extends Fragment {
 
         @Override
         protected User doInBackground(String... strings) {
-            String baseUrl = "http://13.250.1.159:8000/api/users/";
+            String baseUrl = "http://111.231.137.51:8000/api/users/";
             String userID = new UserStateManager().getUserID();
             if (userID.equals("0")){
                 return null;
@@ -423,7 +423,7 @@ public class PersonalFragment extends Fragment {
             // 更新用户名
             if (strings[0].equals("name")){
                 try {
-                    String baseUrl = "http://13.250.1.159:8000/api/users/" + userID + "/";
+                    String baseUrl = "http://111.231.137.51:8000/api/users/" + userID + "/";
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder().url(baseUrl).build();
                     Response response = client.newCall(request).execute();
@@ -461,7 +461,7 @@ public class PersonalFragment extends Fragment {
             // 更新密码
             if (strings[0].equals("password")){
                 try {
-                    String baseUrl = "http://13.250.1.159:8000/api/users/" + userID + "/";
+                    String baseUrl = "http://111.231.137.51:8000/api/users/" + userID + "/";
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder().url(baseUrl).build();
                     Response response = client.newCall(request).execute();
@@ -501,7 +501,7 @@ public class PersonalFragment extends Fragment {
             // 更新密码
             if (strings[0].equals("address")){
                 try {
-                    String baseUrl = "http://13.250.1.159:8000/api/users/" + userID + "/";
+                    String baseUrl = "http://111.231.137.51:8000/api/users/" + userID + "/";
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder().url(baseUrl).build();
                     Response response = client.newCall(request).execute();

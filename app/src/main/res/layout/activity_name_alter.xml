@@ -21,10 +21,14 @@
         android:layout_height="wrap_content"
         android:text="以中文或英文字母开头，限4-16个字符"/>
     <Button
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
         android:id="@+id/confirmalter1"
-        android:text="确认修改"/>
+        android:text="确认修改"
+        android:textSize="16dp"
+        android:background="@drawable/button_circle_shape"/>
 </LinearLayout>
 
 </LinearLayout>

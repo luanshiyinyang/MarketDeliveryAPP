@@ -69,16 +69,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="点击登录"
-                android:textStyle="bold" />
+                android:text="登录"
+                android:textStyle="bold"
+                android:background="#b2ebf2"/>
             <Button
                 android:id="@+id/btn_user_register"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="点击注册"
-                android:textStyle="bold" />
+                android:text="注册"
+                android:textStyle="bold"
+                android:background="#b2ebf2"/>
 
         </LinearLayout>
     </ScrollView>

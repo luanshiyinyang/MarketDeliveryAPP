@@ -248,7 +248,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Order... orders) {
             Order order = orders[0];
-            String baseUrl = "http://13.250.1.159:8000/api/orders";
+            String baseUrl = "http://111.231.137.51:8000/api/orders";
             try {
                 OkHttpClient client = new OkHttpClient();
                 String jsonData = JsonUtil.jsonOrderToString(order);

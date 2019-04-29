@@ -34,7 +34,7 @@ public class UserLoginTask extends AsyncTask<User, String, String> {
     protected String doInBackground(User... users) {
         try {
             User user = users[0];
-            String baseUrl = "http://13.250.1.159:8000/api/users";
+            String baseUrl = "http://111.231.137.51:8000/api/users";
             // 首先判断手机号是否已经注册
             OkHttpClient client = new OkHttpClient();
             Request request1 = new Request.Builder().url(baseUrl+".json").build();
@@ -71,10 +71,14 @@ public class UserLoginTask extends AsyncTask<User, String, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         if (s != null){
-            Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
+
             if (s.split("\\+")[0].equals("登录成功")){
                 new UserStateManager().updateUserState(s);
+                Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
                 activity.finish();
+            }
+            else {
+                Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -5,32 +5,39 @@ android:id="@+id/activity_distributing_order_details"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
+    android:background="@color/bg_gray"
 tools:context="com.zc.marketdelivery.activity.DistributingOrderDetailsActivity">
 <TextView
     android:id="@+id/tv_order_detail2_state"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/bg_gray"
+    android:layout_height="50dp"
+    android:background="#b2ebf2"
     android:textSize="25dp"
     android:textColor="@color/black"
-    android:text="订单配送中"
-    android:layout_centerVertical="true" />
+    android:text=" 订单配送中"
+    android:layout_centerVertical="true"
+    android:gravity="center_vertical" />
 
 <LinearLayout
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="8dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:text="配送员"
         android:textColor="@color/black"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"/>
     <View
         android:layout_width="fill_parent"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:layout_height="1dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="5dp"
@@ -42,20 +49,24 @@ tools:context="com.zc.marketdelivery.activity.DistributingOrderDetailsActivity">
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/ic_distributor"/>
+            android:src="@drawable/ic_distributor"
+            android:paddingLeft="8dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:paddingLeft="5dp">
             <TextView
                 android:id="@+id/tv_order_detail2_distributor_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="黄洋洋"/>
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
+                android:text="A"
+                android:textSize="16dp"/>
+            <!--<View-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="20dp"/>-->
             <RatingBar
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -72,36 +83,50 @@ tools:context="com.zc.marketdelivery.activity.DistributingOrderDetailsActivity">
 
 
 </LinearLayout>
-<TextView
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="预计送达 14:00"
-    android:textSize="15dp"
-    android:paddingLeft="8dp"
-    android:paddingBottom="8dp"
-    android:textColor="@color/black"
-    />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
+        <TextView
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="预计送达 14:00"
+            android:textSize="15dp"
+            android:paddingLeft="8dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"/>
+    </LinearLayout>
+
 
 <LinearLayout
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp">
     <TextView
         android:id="@+id/tv_order_detail2_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:text="超市名称"
         android:contextClickable="true"
         android:clickable="true"
         android:textColor="@color/black"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/iv_order_image" />
+        android:layout_toRightOf="@+id/iv_order_image"
+        android:layout_marginTop="8dp"/>
     <View
         android:layout_width="fill_parent"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:layout_height="1dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="5dp"
@@ -115,7 +140,8 @@ tools:context="com.zc.marketdelivery.activity.DistributingOrderDetailsActivity">
         android:layout_height="wrap_content" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp">
+        android:layout_height="20dp"
+        android:paddingRight="5dp">
         <TextView
             android:id="@+id/tv_order_detail2_result"
             android:layout_alignParentRight="true"
@@ -125,13 +151,16 @@ tools:context="com.zc.marketdelivery.activity.DistributingOrderDetailsActivity">
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:paddingRight="5dp">
         <Button
             android:id="@+id/btn_order_detail2_connectShops"
             style="@style/OrderButton"
             android:text="联系商家"
             android:layout_alignParentRight="true"
-             />
+            android:textSize="16dp"
+            android:background="#b2ebf2"
+            android:layout_marginBottom="5dp"/>
     </RelativeLayout>
 
 
@@ -141,19 +170,23 @@ tools:context="com.zc.marketdelivery.activity.DistributingOrderDetailsActivity">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:background="@color/white">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:text="订单信息"
         android:textColor="@color/black"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/iv_order_image" />
+        android:layout_toRightOf="@+id/iv_order_image"
+        android:layout_marginTop="8dp"/>
     <View
         android:layout_width="fill_parent"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:layout_height="1dp"
         android:layout_marginLeft="8dp"
         android:background="@color/black" />
@@ -209,7 +242,8 @@ tools:context="com.zc.marketdelivery.activity.DistributingOrderDetailsActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:paddingLeft="8dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="8dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -92,7 +92,7 @@ public class OrdersFragment extends Fragment {
             }
             else {
 
-                String baseUrl = "http://13.250.1.159:8000/api/orders/";
+                String baseUrl = "http://111.231.137.51:8000/api/orders/";
 
                 try {
                     OkHttpClient client = new OkHttpClient();

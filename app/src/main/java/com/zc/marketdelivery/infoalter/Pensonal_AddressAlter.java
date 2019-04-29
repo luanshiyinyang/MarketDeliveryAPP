@@ -76,7 +76,7 @@ public class Pensonal_AddressAlter extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try{
                 String userId = new UserStateManager().getUserID();
-                String baseUrl = "http://13.250.1.159:8000/api/users/";
+                String baseUrl = "http://111.231.137.51:8000/api/users/";
                 if (userId.equals("0")){
                     return "请登录";
                 }

@@ -20,7 +20,7 @@
             style="@style/grey_divider" />
 
         <LinearLayout
-            android:background="@drawable/one_fragment_content_item_bg"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -29,16 +29,19 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:gravity="center"
-                android:text="登录/注册"/>
+                android:text="登录/注册"
+                android:textSize="20dp"
+                android:padding="25px"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:background="@drawable/one_fragment_content_item_bg"
+            android:background="@color/white"
             android:padding="25px"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:textSize="15sp"
@@ -67,7 +70,8 @@
             style="@style/grey_divider"/>
 
         <LinearLayout
-            android:background="@drawable/one_fragment_content_item_bg"
+            android:background="@color/white"
+            android:layout_marginTop="8dp"
             android:padding="25px"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -99,7 +103,8 @@
             style="@style/grey_divider" />
 
         <LinearLayout
-            android:background="@drawable/one_fragment_content_item_bg"
+            android:background="@color/white"
+            android:layout_marginTop="8dp"
             android:padding="25px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -131,7 +136,8 @@
             style="@style/grey_divider" />
 
         <LinearLayout
-            android:background="@drawable/one_fragment_content_item_bg"
+            android:background="@color/white"
+            android:layout_marginTop="8dp"
             android:padding="25px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -162,7 +168,8 @@
             style="@style/grey_divider" />
 
         <LinearLayout
-            android:background="@drawable/one_fragment_content_item_bg"
+            android:background="@color/white"
+            android:layout_marginTop="8dp"
             android:padding="25px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -197,10 +204,12 @@
             android:layout_height="wrap_content">
             <Button
                 android:id="@+id/btn_cancel_login"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:textSize="16dp"
+                android:background="@drawable/button_circle_shape"
                 android:text="注销"/>
         </LinearLayout>
 
