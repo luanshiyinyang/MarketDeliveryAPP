@@ -34,7 +34,7 @@ public class Pensonal_NameAlter extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent();
-                String value1=alter.getText().toString();
+                String value1 = alter.getText().toString();
                 intent1.putExtra("data_return",value1);
                 setResult(RESULT_OK,intent1);
                 finish();
@@ -42,4 +42,4 @@ public class Pensonal_NameAlter extends AppCompatActivity {
             }
         });
     }
-};
+}

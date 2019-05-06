@@ -41,9 +41,10 @@
             android:textSize="20dp"
             android:textColor="@color/black"/>
         <TextView
+            android:id="@+id/tv_order_place_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="周晨（先生）  15152874171"
+            android:text="**（先生）  12345678901"
             android:textColor="@color/black"
             android:textSize="16dp"
             android:gravity="center"/>

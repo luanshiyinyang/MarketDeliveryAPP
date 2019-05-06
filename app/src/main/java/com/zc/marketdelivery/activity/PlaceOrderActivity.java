@@ -1,5 +1,6 @@
 package com.zc.marketdelivery.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,8 @@ import com.zc.marketdelivery.adapter.PlaceOrderItemsAdapter;
 import com.zc.marketdelivery.bean.Good;
 import com.zc.marketdelivery.bean.Merchant;
 import com.zc.marketdelivery.bean.Order;
+import com.zc.marketdelivery.bean.User;
+import com.zc.marketdelivery.manager.UserStateManager;
 import com.zc.marketdelivery.utils.JsonUtil;
 import com.zc.marketdelivery.utils.TimeUtil;
 
@@ -44,7 +47,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
     private Order nowOrder;
     private TextView tvTitle;
     private LinearLayout ll;
-    private TextView tvAddress, tvTimePlaced, tvCost;
+    private TextView tvAddress, tvTimePlaced, tvCost, tvName;
     private Button btnSubmit;
     private RecyclerView rvPlaceOrderItems;
     private Spinner spinnerTimeOfArrived, spinnerWayOfPay;
@@ -52,10 +55,13 @@ public class PlaceOrderActivity extends AppCompatActivity {
     private double cost;
     private Merchant merchant;
     private String phone;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new UserInfoTask().execute();
+        Log.i("mmm", user.getName());
         setContentView(R.layout.activity_place_order);
         mContext = this;
 
@@ -124,6 +130,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
         tvTitle = (TextView) findViewById(R.id.tv_order_place_title);
         ll = (LinearLayout) findViewById(R.id.ll_address_choose);
         tvAddress = (TextView) findViewById(R.id.tv_order_place_address);
+        tvName = (TextView) findViewById(R.id.tv_order_place_name);
         tvTimePlaced = (TextView) findViewById(R.id.tv_order_place_time_placed);
         tvCost = (TextView) findViewById(R.id.tv_order_place_cost);
         rvPlaceOrderItems = (RecyclerView) findViewById(R.id.rv_place_order_items);
@@ -134,15 +141,18 @@ public class PlaceOrderActivity extends AppCompatActivity {
         btnSubmit = (Button) findViewById(R.id.btn_order_place_submit);
     }
 
+    @SuppressLint("SetTextI18n")
     private void initViews() {
         tvAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showChooseAddressDialog();
-                nowOrder.setAddress((String) tvAddress.getText());
+                tvName.setText(user.getName() + "  " + user.getPhone());
+                nowOrder.setAddress(tvAddress.getText() +  "&" + tvName.getText());
             }
         });
         tvTimePlaced.setText(nowOrder.getTimePlaced());
+
         tvCost.setText(String.valueOf(nowOrder.getPrice()));
         initSpinner();
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -203,6 +213,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
         bottomDialog.setCanceledOnTouchOutside(true);
         bottomDialog.show();
         final TextView tvAddress1 = (TextView) bottomDialog.findViewById(R.id.tv_user_choose_address1);
+        tvAddress1.setText(user.getAddress());
         final TextView tvAddress2 = (TextView) bottomDialog.findViewById(R.id.tv_user_choose_address2);
         final TextView tvAddress3 = (TextView) bottomDialog.findViewById(R.id.tv_user_choose_address3);
         final TextView tvAddress4 = (TextView) bottomDialog.findViewById(R.id.tv_user_choose_address4);
@@ -271,6 +282,45 @@ public class PlaceOrderActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    class UserInfoTask extends AsyncTask<String, String, User>{
+
+        @Override
+        protected User doInBackground(String... strings) {
+            String baseUrl = "http://111.231.137.51:8000/api/users/";
+            String userID = new UserStateManager().getUserID();
+            if (userID.equals("0")){
+                return null;
+            }
+            else {
+                baseUrl += (userID + "/");
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url(baseUrl).build();
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()){
+                        return JsonUtil.parseUserJsonObject(response.body() != null ? response.body().string() : null);
+                    }
+                    return null;
+
+                }catch (IOException e){
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(User u) {
+            super.onPostExecute(user);
+            if (u == null){
+                Toast.makeText(mContext, "请先登录或确认网络连接", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                user = u;
+            }
         }
     }
 

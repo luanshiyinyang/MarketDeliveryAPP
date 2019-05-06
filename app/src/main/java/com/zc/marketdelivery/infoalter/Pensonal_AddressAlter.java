@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +32,7 @@ public class Pensonal_AddressAlter extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new UserInfoTask().execute();
         setContentView(R.layout.activity_address_alter);
         bindViews();
         initViews();
@@ -84,6 +86,7 @@ public class Pensonal_AddressAlter extends AppCompatActivity {
                     baseUrl += (userId +"/");
                 }
                 OkHttpClient client = new OkHttpClient();
+
                 Request request = new Request.Builder().url(baseUrl).build();
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()){
@@ -106,6 +109,7 @@ public class Pensonal_AddressAlter extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 User user = JsonUtil.parseUserJsonObject(s);
+
                 tvNowAddress.setText(user.getAddress());
             }catch (Exception e){
                 e.printStackTrace();
