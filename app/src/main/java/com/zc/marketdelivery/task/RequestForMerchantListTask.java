@@ -104,7 +104,6 @@ public class RequestForMerchantListTask extends AsyncTask<String,String, List<Me
     protected void onPostExecute(List<Merchant> merchants) {
         if (merchants != null){
             super.onPostExecute(merchants);
-            Log.i("mmm", merchants.get(0).getName());
             LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
             recyclerView.setLayoutManager(layoutManager);
             HomeMerchantsAdapter adapter = new HomeMerchantsAdapter(merchants, mContext);

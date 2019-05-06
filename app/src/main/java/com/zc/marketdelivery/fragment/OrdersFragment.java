@@ -87,7 +87,6 @@ public class OrdersFragment extends Fragment {
         protected List<Order> doInBackground(String... strings) {
             String userID = new UserStateManager().getUserID();
             if (userID.equals("0")){
-                Log.i("mmm", userID);
                 return null;
             }
             else {
