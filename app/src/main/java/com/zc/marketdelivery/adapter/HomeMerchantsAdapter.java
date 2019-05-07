@@ -96,8 +96,8 @@ public class HomeMerchantsAdapter extends RecyclerView.Adapter<HomeMerchantsAdap
         holder.rating.setStar(merchant.getRating());
         holder.score.setText(String.valueOf(merchant.getRating()));
         holder.sales.setText("月售"+String.valueOf(merchant.getSales())+"单");
-        holder.priceSending.setText(String.valueOf(merchant.getPriceSending()));
-        holder.priceSend.setText(String.valueOf(merchant.getPriceSend()));
+        holder.priceSending.setText("起送价" + String.valueOf(merchant.getPriceSending()));
+        holder.priceSend.setText("配送费" + String.valueOf(merchant.getPriceSend()));
         holder.address.setText(merchant.getAddress());
         holder.timeSended.setText(merchant.getTimeSended());
         holder.distance.setText(String.valueOf(merchant.getDistance())+"km");

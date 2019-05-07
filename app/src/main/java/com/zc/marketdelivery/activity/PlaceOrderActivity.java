@@ -61,7 +61,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new UserInfoTask().execute();
-        Log.i("mmm", user.getName());
         setContentView(R.layout.activity_place_order);
         mContext = this;
 

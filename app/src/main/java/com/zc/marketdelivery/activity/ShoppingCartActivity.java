@@ -93,13 +93,18 @@ public class ShoppingCartActivity extends AppCompatActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String result = data.getStringExtra("PlaceResult");
-        if(result != null){
-            if (result.equals("finish")) {
-                finish();
-            } else {
-                Toast.makeText(mContext, "下单过程异常退出，请重试", Toast.LENGTH_SHORT).show();
+        if(data!=null) {
+            String result = data.getStringExtra("PlaceResult");
+            if (result != null) {
+                if (result.equals("finish")) {
+                    finish();
+                } else {
+                    Toast.makeText(mContext, "下单过程异常退出，请重试", Toast.LENGTH_SHORT).show();
+                }
             }
+        }
+        else{
+
         }
     }
 
